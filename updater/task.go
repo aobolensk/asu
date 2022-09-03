@@ -25,7 +25,10 @@ func StartTask(task UpdaterTask) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	io.WriteString(stdin, task.OnStart.Script)
+	_, err = io.WriteString(stdin, task.OnStart.Script)
+	if err != nil {
+		log.Fatal(err)
+	}
 	stdin.Close()
 	out, err := cmd.CombinedOutput()
 	if err != nil {
