@@ -26,6 +26,9 @@ func processDirectory(dir string) asu.Config {
 		log.Fatal(err)
 	}
 	config := asu.Config{}
-	yaml.Unmarshal(yamlBytes, &config)
+	err = yaml.Unmarshal(yamlBytes, &config)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return config
 }
