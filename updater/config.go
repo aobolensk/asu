@@ -7,6 +7,21 @@ type UpdaterTask struct {
 		Script string   `yaml:"script"`
 		Env    []string `yaml:"env"`
 	} `yaml:"on_start"`
+	Update struct {
+		Interval int `yaml:"interval"`
+		Before   struct {
+			Script string   `yaml:"script"`
+			Env    []string `yaml:"env"`
+		} `yaml:"before"`
+		On struct {
+			Script string   `yaml:"script"`
+			Env    []string `yaml:"env"`
+		} `yaml:"on"`
+		After struct {
+			Script string   `yaml:"script"`
+			Env    []string `yaml:"env"`
+		} `yaml:"after"`
+	} `yaml:"update"`
 	OnStop struct {
 		Script string   `yaml:"script"`
 		Env    []string `yaml:"env"`
