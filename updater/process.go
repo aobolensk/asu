@@ -6,9 +6,10 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"syscall"
 )
 
-func RunProcess(env []string, script string) {
+func RunProcess(env []string, script string) int {
 	cmd := exec.Command("bash", "-")
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, env...)
@@ -26,4 +27,5 @@ func RunProcess(env []string, script string) {
 		log.Fatal(err)
 	}
 	fmt.Printf("%s\n", out)
+	return cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus()
 }
