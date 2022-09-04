@@ -40,7 +40,11 @@ func StartUpdateRoutine(task UpdaterTask) {
 	for {
 		time.Sleep(time.Duration(task.Update.Interval) * time.Second)
 		log.Println("Before update")
-		RunProcess(task.Update.Before.Env, task.Update.Before.Script)
+		ret := RunProcess(task.Update.Before.Env, task.Update.Before.Script)
+		if ret != 0 {
+			log.Println("Before update failed. Skipping update cycle...")
+			continue
+		}
 		log.Println("Update")
 		RunProcess(task.Update.On.Env, task.Update.On.Script)
 		log.Println("After update")

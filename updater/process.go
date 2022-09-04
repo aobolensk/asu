@@ -22,10 +22,8 @@ func RunProcess(env []string, script string) int {
 		log.Fatal(err)
 	}
 	stdin.Close()
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Fatal(err)
-	}
+	out, _ := cmd.CombinedOutput()
+	retCode := cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus()
 	fmt.Printf("%s\n", out)
-	return cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus()
+	return retCode
 }
