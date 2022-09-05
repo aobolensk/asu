@@ -22,8 +22,14 @@ func RunProcess(env []string, script string, workingDir string) int {
 		log.Fatal(err)
 	}
 	stdin.Close()
-	cmd.Start()
-	cmd.Wait()
+	err = cmd.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = cmd.Wait()
+	if err != nil {
+		log.Fatal(err)
+	}
 	retCode := cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus()
 	return retCode
 }
