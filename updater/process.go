@@ -1,7 +1,6 @@
 package asu
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -9,8 +8,9 @@ import (
 	"syscall"
 )
 
-func RunProcess(env []string, script string) int {
+func RunProcess(env []string, script string, workingDir string) int {
 	cmd := exec.Command("bash", "-")
+	cmd.Dir = workingDir
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, env...)
 	stdin, err := cmd.StdinPipe()
@@ -22,8 +22,8 @@ func RunProcess(env []string, script string) int {
 		log.Fatal(err)
 	}
 	stdin.Close()
-	out, _ := cmd.CombinedOutput()
+	cmd.Start()
+	cmd.Wait()
 	retCode := cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus()
-	fmt.Printf("%s\n", out)
 	return retCode
 }
