@@ -30,5 +30,6 @@ func processDirectory(dir string) asu.Config {
 	if err != nil {
 		log.Fatal(err)
 	}
+	config.Task.Directory = dir
 	return config
 }

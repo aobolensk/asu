@@ -3,6 +3,7 @@ package asu
 type UpdaterTask struct {
 	APIVersion string `yaml:"api_version"`
 	Name       string `yaml:"name"`
+	Directory  string
 	OnStart    struct {
 		Script string   `yaml:"script"`
 		Env    []string `yaml:"env"`
